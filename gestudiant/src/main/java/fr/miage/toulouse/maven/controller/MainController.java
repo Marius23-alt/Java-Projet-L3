@@ -33,6 +33,7 @@ public class MainController {
         try {
             try{
                 Connection bd = Connexion.getConnexion();
+                System.out.println("Connection à la base réussie");
             } catch (SQLException e){
                 LOGGER.warning("Connexion à la base impossible : " + e.getMessage());
             }
@@ -54,6 +55,7 @@ public class MainController {
             LOGGER.log(Level.SEVERE,"Erreur de navigation : {}", e.getMessage());
             e.printStackTrace();
         }
+
     }
 
     @FXML
@@ -72,7 +74,5 @@ public class MainController {
     }
 
     @FXML
-    public void initialize() {
-        handleDashboard();
-    }
+    public void initialize() { handleDashboard(); }
 }
