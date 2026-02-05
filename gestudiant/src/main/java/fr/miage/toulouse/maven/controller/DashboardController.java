@@ -33,17 +33,20 @@ public class DashboardController {
         colPrenom.setCellValueFactory(new PropertyValueFactory<>("prenom"));
         colNumEtudiant.setCellValueFactory(new PropertyValueFactory<>("numEtudiant"));
         colParcours.setCellValueFactory(new PropertyValueFactory<>("id_parcours"));
+        colMention.setCellValueFactory(new PropertyValueFactory<>("id_mention"));
+        colSemestre.setCellValueFactory(new PropertyValueFactory<>("semestreActuel"));
+
 
         chargerTableau();
     }
 
     private void chargerTableau() {
 
-        ObservableList<Etudiant> listeEtudiants = FXCollections.observableArrayList();
+        listeEtudiants.clear();
 
         try (Connection db = Connexion.getConnexion()) {
 
-            String sql = "SELECT * FROM etudiant";
+            String sql = "SELECT E.num_etu, E.nom, E.prenom, E.id_parcours, P.id_mention, I.semestre FROM etudiant E INNER JOIN parcours P ON E.id_parcours = P.id_parcours INNER JOIN inscription I ON I.num_etu = E.num_etu";
             Statement st = db.createStatement();
             ResultSet rs = st.executeQuery(sql);
 
