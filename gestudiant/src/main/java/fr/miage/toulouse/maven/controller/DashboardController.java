@@ -46,7 +46,7 @@ public class DashboardController {
 
         try (Connection db = Connexion.getConnexion()) {
 
-            String sql = "SELECT E.num_etu, E.nom, E.prenom, E.id_parcours, P.id_mention, I.semestre FROM etudiant E INNER JOIN parcours P ON E.id_parcours = P.id_parcours INNER JOIN inscription I ON I.num_etu = E.num_etu";
+            String sql = "SELECT distinct E.num_etu, E.nom, E.prenom, E.id_parcours, P.id_mention, I.semestre FROM etudiant E INNER JOIN parcours P ON E.id_parcours = P.id_parcours INNER JOIN inscription I ON I.num_etu = E.num_etu WHERE I.statut_validation = 'en_cours'";
             Statement st = db.createStatement();
             ResultSet rs = st.executeQuery(sql);
 
