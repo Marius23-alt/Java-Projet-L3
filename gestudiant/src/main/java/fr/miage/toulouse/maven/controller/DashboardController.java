@@ -1,6 +1,7 @@
 package fr.miage.toulouse.maven.controller;
 
 import fr.miage.toulouse.maven.cours.Etudiant;
+import fr.miage.toulouse.maven.database.Request;
 import javafx.fxml.FXML;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
@@ -44,20 +45,13 @@ public class DashboardController {
 
         listeEtudiants.clear();
 
-        try (Connection db = Connexion.getConnexion()) {
-
-            String sql = "SELECT distinct E.num_etu, E.nom, E.prenom, E.id_parcours, P.id_mention, I.semestre FROM etudiant E INNER JOIN parcours P ON E.id_parcours = P.id_parcours INNER JOIN inscription I ON I.num_etu = E.num_etu WHERE I.statut_validation = 'en_cours'";
-            Statement st = db.createStatement();
-            ResultSet rs = st.executeQuery(sql);
-
-            while (rs.next()) {
-                listeEtudiants.add(Convertion.toEtudiant(rs));
-            }
-
-            tableEtudiants.setItems(listeEtudiants);
-
-        } catch (SQLException e) {
-            System.out.println("Erreur lors du chargement des données : " + e.getMessage());
+        Request req = new Request();
+        ResultSet rs = req.recupEtudiant();
+        while (rs.next()) {
+            listeEtudiants.add(Convertion.toEtudiant(rs));
         }
+
+        tableEtudiants.setItems(listeEtudiants);
     }
 }
+
