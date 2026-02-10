@@ -31,12 +31,6 @@ public class MainController {
      */
     private void loadView(String fxmlFile, String newTitle) {
         try {
-            try{
-                Connection bd = Connexion.getConnexion();
-                System.out.println("Connection à la base réussie");
-            } catch (SQLException e){
-                LOGGER.warning("Connexion à la base impossible : " + e.getMessage());
-            }
             URL fxmlLocation = getClass().getResource("/fxml/" + fxmlFile);
 
             if (fxmlLocation == null) {
