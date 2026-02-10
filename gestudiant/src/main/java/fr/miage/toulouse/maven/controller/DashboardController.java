@@ -44,11 +44,14 @@ public class DashboardController {
     private void chargerTableau() {
 
         listeEtudiants.clear();
-
-        Request req = new Request();
-        ResultSet rs = req.recupEtudiant();
-        while (rs.next()) {
-            listeEtudiants.add(Convertion.toEtudiant(rs));
+        try {
+            Request req = new Request();
+            ResultSet rs = req.recupEtudiant();
+            while (rs.next()) {
+                listeEtudiants.add(Convertion.toEtudiant(rs));
+            }
+        } catch (SQLException e) {
+            System.out.println("Erreur lors du chargement des données : " + e.getMessage());
         }
 
         tableEtudiants.setItems(listeEtudiants);
