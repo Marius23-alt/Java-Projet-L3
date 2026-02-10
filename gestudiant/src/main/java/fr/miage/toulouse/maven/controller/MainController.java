@@ -1,5 +1,7 @@
-package fr.miage.toulouse.maven;
+package fr.miage.toulouse.maven.controller;
 
+
+import fr.miage.toulouse.maven.database.Connexion;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -7,6 +9,8 @@ import javafx.scene.layout.StackPane;
 import javafx.scene.text.Text;
 import java.io.IOException;
 import java.net.URL;
+import java.sql.Connection;
+import java.sql.SQLException;
 import java.util.logging.Logger;
 import java.util.logging.Level;
 
@@ -19,6 +23,7 @@ public class MainController {
     @FXML
     private StackPane contentArea;
 
+
     /**
      * A completer
      * @param fxmlFile
@@ -26,6 +31,12 @@ public class MainController {
      */
     private void loadView(String fxmlFile, String newTitle) {
         try {
+            try{
+                Connection bd = Connexion.getConnexion();
+                System.out.println("Connection à la base réussie");
+            } catch (SQLException e){
+                LOGGER.warning("Connexion à la base impossible : " + e.getMessage());
+            }
             URL fxmlLocation = getClass().getResource("/fxml/" + fxmlFile);
 
             if (fxmlLocation == null) {
@@ -44,6 +55,7 @@ public class MainController {
             LOGGER.log(Level.SEVERE,"Erreur de navigation : {}", e.getMessage());
             e.printStackTrace();
         }
+
     }
 
     @FXML
@@ -62,7 +74,5 @@ public class MainController {
     }
 
     @FXML
-    public void initialize() {
-        handleDashboard();
-    }
+    public void initialize() { handleDashboard(); }
 }
