@@ -11,10 +11,18 @@ import java.util.logging.Level;
 public class Main extends Application {
     private static final Logger LOGGER = Logger.getLogger(Main.class.getName());
 
+    /**
+     * Permet de recuperer en parametre une fenetre, pour pouvoir ensuite la personnaliser et de l'a charger
+     * @param primaryStage La fenetre créé par la méthode launch(args) du main grace a "extends Application"
+     */
     @Override
     public void start(Stage primaryStage) {
         try {
-
+            // Création de tous les boutons, Menus, StackPane, etc)
+            // Création du controleur MainController -> JavaFX voit que le fichier fxml et lié à la class MainController
+            // Injecte : Connecte les éléments du FXML aux variables @FXML
+            // Appelle automatiquement la méthode initialize() de MainController
+            // => Conséquence : MainController exécute handleDashboard(), qui charge la vue 'Tableau de bord" dans zone centrale
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/MainLayout.fxml"));
             Parent root = loader.load();
 

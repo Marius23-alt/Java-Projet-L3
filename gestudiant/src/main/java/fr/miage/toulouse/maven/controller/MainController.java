@@ -31,11 +31,6 @@ public class MainController {
      */
     private void loadView(String fxmlFile, String newTitle) {
         try {
-            try{
-                Connection bd = Connexion.getConnexion();
-            } catch (SQLException e){
-                LOGGER.warning("Connexion à la base impossible : " + e.getMessage());
-            }
             URL fxmlLocation = getClass().getResource("/fxml/" + fxmlFile);
 
             if (fxmlLocation == null) {
@@ -54,6 +49,7 @@ public class MainController {
             LOGGER.log(Level.SEVERE,"Erreur de navigation : {}", e.getMessage());
             e.printStackTrace();
         }
+
     }
 
     @FXML
@@ -72,7 +68,5 @@ public class MainController {
     }
 
     @FXML
-    public void initialize() {
-        handleDashboard();
-    }
+    public void initialize() { handleDashboard(); }
 }
