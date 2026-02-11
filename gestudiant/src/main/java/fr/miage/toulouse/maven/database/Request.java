@@ -1,5 +1,9 @@
 package fr.miage.toulouse.maven.database;
 
+import fr.miage.toulouse.maven.cours.Etudiant;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+
 import java.sql.*;
 
 import java.util.logging.Level;
@@ -31,16 +35,23 @@ public class Request {
      * Permet de récuperer la liste des étudiants
      * @return la liste des étudiants
      */
-    public ResultSet recupEtudiant() {
+    public ObservableList<Etudiant> recupEtudiant() {
 
         String sql = "SELECT distinct E.num_etu, E.nom, E.prenom, E.id_parcours, P.id_mention, I.semestre FROM etudiant E INNER JOIN parcours P ON E.id_parcours = P.id_parcours INNER JOIN inscription I ON I.num_etu = E.num_etu WHERE I.statut_validation = 'en_cours'";
 
-        try (Statement st = conn.createStatement()) {
-            return st.executeQuery(sql);
+        ObservableList<Etudiant> listeEtudiants = FXCollections.observableArrayList();
+
+        try (PreparedStatement st = conn.prepareStatement(sql);
+            ResultSet rs = st.executeQuery()) {
+
+            while (rs.next()) {
+                listeEtudiants.add(Convertion.toEtudiant(rs));
+            }
+            return listeEtudiants;
 
         }catch (SQLException e){
             log.log(Level.WARNING, ERROR, e);
-            return null;
+            return listeEtudiants;
         }
     }
 

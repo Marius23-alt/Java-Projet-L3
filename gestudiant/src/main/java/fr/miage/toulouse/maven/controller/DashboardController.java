@@ -6,12 +6,11 @@ import javafx.fxml.FXML;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 
-import fr.miage.toulouse.maven.database.Connexion;
-import fr.miage.toulouse.maven.database.Convertion;
+
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.control.cell.PropertyValueFactory;
-import java.sql.*;
+
 
 
 public class DashboardController {
@@ -44,15 +43,9 @@ public class DashboardController {
     private void chargerTableau() {
 
         listeEtudiants.clear();
-        try {
-            Request req = new Request();
-            ResultSet rs = req.recupEtudiant();
-            while (rs.next()) {
-                listeEtudiants.add(Convertion.toEtudiant(rs));
-            }
-        } catch (SQLException e) {
-            System.out.println("Erreur lors du chargement des données : " + e.getMessage());
-        }
+        Request req = new Request();
+        listeEtudiants = req.recupEtudiant();
+
 
         tableEtudiants.setItems(listeEtudiants);
     }
