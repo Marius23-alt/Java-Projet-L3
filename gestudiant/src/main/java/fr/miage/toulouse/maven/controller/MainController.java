@@ -13,6 +13,8 @@ import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.logging.Logger;
 import java.util.logging.Level;
+import javafx.scene.control.Button;
+import javafx.scene.input.MouseEvent;
 
 public class MainController {
     private static final Logger LOGGER = Logger.getLogger(MainController.class.getName());
@@ -29,6 +31,23 @@ public class MainController {
      * @param fxmlFile
      * @param newTitle
      */
+
+    @FXML // Si souris passe sur bouton, changer la couleur du bouton
+    private void handleMouseIn(MouseEvent event) {
+        if (event.getSource() instanceof Button) {
+            Button btn = (Button) event.getSource();
+            btn.setStyle("-fx-background-color: #5e9ff7; -fx-background-radius: 5; -fx-cursor: hand;");
+        }
+    }
+
+    @FXML // Si souris sort du bouton, remettre normal
+    private void handleMouseOut(MouseEvent event) {
+        if (event.getSource() instanceof Button) {
+            Button btn = (Button) event.getSource();
+            btn.setStyle("-fx-background-color: transparent;");
+        }
+    }
+
     private void loadView(String fxmlFile, String newTitle) {
         try {
             URL fxmlLocation = getClass().getResource("/fxml/" + fxmlFile);
