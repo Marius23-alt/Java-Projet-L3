@@ -22,6 +22,9 @@
                      <image>
                         <Image url="@../images/Logo.png" />
                      </image>
+                     <HBox.margin>
+                        <Insets top="10.0" />
+                     </HBox.margin>
                   </ImageView>
                   <Region prefHeight="200.0" prefWidth="200.0" HBox.hgrow="ALWAYS" />
                   <Text fx:id="titleText" fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0">
