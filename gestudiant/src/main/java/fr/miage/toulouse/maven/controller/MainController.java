@@ -37,7 +37,7 @@ public class MainController {
     private void handleMouseIn(MouseEvent event) {
         if (event.getSource() instanceof Button) {
             Button btn = (Button) event.getSource();
-            btn.setStyle("-fx-background-color: #5e9ff7; -fx-background-radius: 5; -fx-cursor: hand;");
+            btn.setStyle("-fx-background-color: #d30000; -fx-background-radius: 5; -fx-cursor: hand;");
         }
     }
 
